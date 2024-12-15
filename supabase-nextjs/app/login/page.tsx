@@ -7,6 +7,7 @@ import { Mail } from "lucide-react";
 import { useState } from "react";
 
 export default function LoginPage() {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [errors, setErrors] = useState({ email: "", password: "" });
 
 	return (
