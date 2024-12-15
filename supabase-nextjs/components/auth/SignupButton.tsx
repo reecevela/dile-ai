@@ -10,7 +10,7 @@ export const SignupButton = () => {
 				window.location.href = "/login";
 			}}
 		>
-			Log In
+			Sign Up
 		</Button>
 	);
 };
