@@ -1,0 +1,84 @@
+{
+	"extends": [
+		"next/core-web-vitals",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:@typescript-eslint/recommended"
+	],
+	"plugins": ["@typescript-eslint", "prettier"],
+	"globals": { "Atomics": "readonly", "SharedArrayBuffer": "readonly" },
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaFeatures": { "jsx": true },
+		"ecmaVersion": 2021,
+		"sourceType": "module",
+		"project": "./tsconfig.json"
+	},
+	"rules": {
+		"no-mixed-spaces-and-tabs": "off",
+		"@typescript-eslint/no-explicit-any": "error",
+		"import/prefer-default-export": "off",
+		"implicit-arrow-linebreak": "off",
+		"no-unused-expressions": "off",
+		"complexity": ["error", 35],
+		"@typescript-eslint/no-unused-expressions": "error",
+		"max-len": ["error", { "code": 250 }],
+		"@typescript-eslint/no-empty-function": "off",
+		"no-shadow": "off",
+		"default-case": ["error", { "commentPattern": "^no default$" }],
+		"no-empty-pattern": "error",
+		"no-eval": "error",
+		"no-extend-native": "error",
+		"default-case-last": "error",
+		"no-fallthrough": "error",
+		"no-global-assign": ["error", { "exceptions": ["console"] }],
+		"no-implied-eval": "error",
+		"no-invalid-this": "off",
+		"no-iterator": "error",
+		"no-lone-blocks": "error",
+		"eqeqeq": ["error", "always", { "null": "ignore" }],
+		"max-classes-per-file": ["error", 3],
+		"@typescript-eslint/no-shadow": "error",
+		"@typescript-eslint/explicit-function-return-type": "off",
+		"@typescript-eslint/no-non-null-assertion": "error",
+		"operator-linebreak": "off",
+		"no-param-reassign": [
+			"error",
+			{
+				"props": true,
+				"ignorePropertyModificationsFor": [
+					"acc", // for reduce accumulators
+					"accumulator", // for reduce accumulators
+					"e", // for e.returnvalue
+					"ctx", // for Koa routing
+					"context", // for Koa routing
+					"req", // for Express requests
+					"request", // for Express requests
+					"res", // for Express responses
+					"response", // for Express responses
+					"$scope", // for Angular 1 scopes
+					"staticContext" // for ReactRouter context
+				]
+			}
+		],
+		"object-curly-newline": "off",
+		"no-console": ["error", { "allow": ["error"] }],
+		"no-loop-func": "error",
+		"no-multi-spaces": [
+			"error",
+			{
+				"ignoreEOLComments": false
+			}
+		],
+		"no-multi-str": "error",
+		"no-new": "error",
+		"no-new-func": "error",
+		"no-new-wrappers": "error",
+		"no-return-assign": ["error", "always"],
+		"no-self-compare": "error",
+		"no-sequences": "error",
+		"no-throw-literal": "error",
+		"no-unmodified-loop-condition": "off",
+		"no-unused-labels": "error",
+		"no-useless-concat": "error"
+	}
+}
