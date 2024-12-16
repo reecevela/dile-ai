@@ -2,14 +2,21 @@
 import { adminSupabaseClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
+// Updated type definition for route parameters
+type RouteContext = {
+	params: {
+		user_id: string;
+	};
+};
+
 export async function GET(
 	request: NextRequest,
-	{ params }: { params: { user_id: string } },
+	context: RouteContext, // Updated parameter type
 ) {
 	const { data, error } = await adminSupabaseClient
 		.from("notes")
 		.select("*")
-		.eq("user_id", params.user_id)
+		.eq("user_id", context.params.user_id)
 		.order("created_at", { ascending: false });
 
 	if (error) {
@@ -24,7 +31,7 @@ export async function GET(
 
 export async function POST(
 	request: NextRequest,
-	{ params }: { params: { user_id: string } },
+	context: RouteContext, // Updated parameter type
 ) {
 	try {
 		const { title, message } = await request.json();
@@ -38,7 +45,7 @@ export async function POST(
 		const { data, error } = await adminSupabaseClient
 			.from("notes")
 			.insert({
-				user_id: params.user_id,
+				user_id: context.params.user_id,
 				title,
 				content: message,
 			})
