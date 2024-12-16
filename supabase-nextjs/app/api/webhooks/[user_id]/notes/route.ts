@@ -52,6 +52,7 @@ export async function POST(
 			.single();
 
 		if (error) {
+			console.error("Error creating note:", error);
 			return NextResponse.json(
 				{ error: "Failed to create note" },
 				{ status: 500 },
