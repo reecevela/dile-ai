@@ -12,6 +12,7 @@ export default function AccountForm({ user }: { user: User | null }) {
 	const [loading, setLoading] = useState(true);
 	const [fullname, setFullname] = useState<string | null>(null);
 	const [username, setUsername] = useState<string | null>(null);
+	const [bio, setBio] = useState<string | null>(null);
 	const [website, setWebsite] = useState<string | null>(null);
 	const [avatar_url, setAvatarUrl] = useState<string | null>(null);
 	const [saveStatus, setSaveStatus] = useState<
@@ -23,7 +24,7 @@ export default function AccountForm({ user }: { user: User | null }) {
 			setLoading(true);
 			const { data, error, status } = await supabase
 				.from("profiles")
-				.select(`full_name, username, website, avatar_url`)
+				.select(`full_name, username, bio, website, avatar_url`)
 				.eq("id", user?.id)
 				.single();
 
@@ -34,6 +35,7 @@ export default function AccountForm({ user }: { user: User | null }) {
 			if (data) {
 				setFullname(data.full_name);
 				setUsername(data.username);
+				setBio(data.bio);
 				setWebsite(data.website);
 				setAvatarUrl(data.avatar_url);
 			}
@@ -51,10 +53,12 @@ export default function AccountForm({ user }: { user: User | null }) {
 	async function updateProfile({
 		username,
 		website,
+		bio,
 		avatar_url,
 	}: {
 		username: string | null;
 		fullname: string | null;
+		bio: string | null;
 		website: string | null;
 		avatar_url: string | null;
 	}) {
@@ -64,6 +68,7 @@ export default function AccountForm({ user }: { user: User | null }) {
 				id: user?.id as string,
 				full_name: fullname,
 				username,
+				bio,
 				website,
 				avatar_url,
 				updated_at: new Date().toISOString(),
@@ -102,6 +107,7 @@ export default function AccountForm({ user }: { user: User | null }) {
 								updateProfile({
 									fullname,
 									username,
+									bio,
 									website,
 									avatar_url: url,
 								});
@@ -141,6 +147,15 @@ export default function AccountForm({ user }: { user: User | null }) {
 						/>
 
 						<Input
+							label="Bio"
+							id="bio"
+							icon={<UserIcon />}
+							value={bio || ""}
+							onChange={(e) => setBio(e.target.value)}
+							placeholder="How do you Dile?"
+						/>
+
+						<Input
 							label="Website"
 							id="website"
 							icon={<Globe />}
@@ -160,6 +175,7 @@ export default function AccountForm({ user }: { user: User | null }) {
 								updateProfile({
 									fullname,
 									username,
+									bio,
 									website,
 									avatar_url,
 								})
