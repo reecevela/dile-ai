@@ -3,12 +3,13 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
 	request: NextRequest,
-	context: { params: { user_id: string } },
+	{ params }: { params: Promise<{ user_id: string }> },
 ) {
+	const { user_id } = await params;
 	const { data, error } = await adminSupabaseClient
 		.from("notes")
 		.select("*")
-		.eq("user_id", context.params.user_id)
+		.eq("user_id", user_id)
 		.order("created_at", { ascending: false });
 
 	if (error) {
@@ -23,9 +24,10 @@ export async function GET(
 
 export async function POST(
 	request: NextRequest,
-	context: { params: { user_id: string } },
+	{ params }: { params: Promise<{ user_id: string }> },
 ) {
 	try {
+		const { user_id } = await params;
 		const { title, message } = await request.json();
 		if (!title || !message) {
 			return NextResponse.json(
@@ -37,7 +39,7 @@ export async function POST(
 		const { data, error } = await adminSupabaseClient
 			.from("notes")
 			.insert({
-				user_id: context.params.user_id,
+				user_id: user_id,
 				title,
 				content: message,
 			})
