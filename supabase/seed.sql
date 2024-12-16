@@ -1,0 +1,3 @@
+-- need to set up seed data for auth table first to mock this
+--insert into users (id, phone_number, created_at, updated_at) values ('f7b3b3b4-3b1b-4b3b-8b3b-3b1b3b1b3b1b', '+15632721932', now(), now());
+--insert into profiles (id, username, full_name) values ('f7b3b3b4-3b1b-4b3b-8b3b-3b1b3b1b3b1b', 'johndoe', 'John Doe');

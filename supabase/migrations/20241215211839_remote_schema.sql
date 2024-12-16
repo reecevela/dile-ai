@@ -99,28 +99,31 @@ ALTER TABLE "public"."profiles" OWNER TO "postgres";
 
 
 ALTER TABLE ONLY "public"."profiles"
+    DROP CONSTRAINT IF EXISTS "profiles_pkey",
     ADD CONSTRAINT "profiles_pkey" PRIMARY KEY ("id");
 
 
 
 ALTER TABLE ONLY "public"."profiles"
+    DROP CONSTRAINT IF EXISTS "profiles_username_key",
     ADD CONSTRAINT "profiles_username_key" UNIQUE ("username");
 
 
 
 ALTER TABLE ONLY "public"."profiles"
+    DROP CONSTRAINT IF EXISTS "profiles_id_fkey",
     ADD CONSTRAINT "profiles_id_fkey" FOREIGN KEY ("id") REFERENCES "auth"."users"("id") ON DELETE CASCADE;
 
 
-
+DROP POLICY IF EXISTS "Public profiles are viewable by everyone." ON "public"."profiles";
 CREATE POLICY "Public profiles are viewable by everyone." ON "public"."profiles" FOR SELECT USING (true);
 
 
-
+DROP POLICY IF EXISTS "Users can insert their own profile." ON "public"."profiles";
 CREATE POLICY "Users can insert their own profile." ON "public"."profiles" FOR INSERT WITH CHECK ((( SELECT "auth"."uid"() AS "uid") = "id"));
 
 
-
+DROP POLICY IF EXISTS "Users can update own profile." ON "public"."profiles";
 CREATE POLICY "Users can update own profile." ON "public"."profiles" FOR UPDATE USING ((( SELECT "auth"."uid"() AS "uid") = "id"));
 
 
