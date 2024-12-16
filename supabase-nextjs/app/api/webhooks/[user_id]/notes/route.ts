@@ -1,10 +1,13 @@
 import { adminSupabaseClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
+import { checkAuthorization } from "@/lib/auth";
 
 export async function GET(
 	request: NextRequest,
 	{ params }: { params: Promise<{ user_id: string }> },
 ) {
+	const authResponse = await checkAuthorization();
+	if (authResponse) return authResponse;
 	const { user_id } = await params;
 	const { data, error } = await adminSupabaseClient
 		.from("notes")
@@ -27,6 +30,8 @@ export async function POST(
 	{ params }: { params: Promise<{ user_id: string }> },
 ) {
 	try {
+		const authResponse = await checkAuthorization();
+		if (authResponse) return authResponse;
 		const { user_id } = await params;
 		const { title, message } = await request.json();
 		if (!title || !message) {

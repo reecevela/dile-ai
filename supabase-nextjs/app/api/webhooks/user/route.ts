@@ -1,8 +1,11 @@
 // app/api/webhooks/user/route.ts
+import { checkAuthorization } from "@/lib/auth";
 import { adminSupabaseClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
+	const authResponse = await checkAuthorization();
+	if (authResponse) return authResponse;
 	const encodedPhone = request.nextUrl.searchParams.get("phone_number");
 	if (!encodedPhone) {
 		return NextResponse.json(
