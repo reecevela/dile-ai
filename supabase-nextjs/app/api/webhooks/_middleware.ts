@@ -9,8 +9,17 @@ export function middleware(request: NextRequest) {
 	if (!authHeader || authHeader !== expectedAuth) {
 		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 	}
+
+	// Important: Return NextResponse.next() to allow the request to continue
+	return NextResponse.next();
 }
 
+// Update the matcher to be more specific about HTTP methods
 export const config = {
-	matcher: "/api/webhooks/:path*",
+	matcher: [
+		{
+			source: "/api/webhooks/:path*",
+			methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+		},
+	],
 };
