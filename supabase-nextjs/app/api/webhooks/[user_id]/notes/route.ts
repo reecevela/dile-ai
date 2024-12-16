@@ -1,17 +1,9 @@
-// app/api/webhooks/[user_id]/notes/route.ts
 import { adminSupabaseClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
-// Updated type definition for route parameters
-type RouteContext = {
-	params: {
-		user_id: string;
-	};
-};
-
 export async function GET(
 	request: NextRequest,
-	context: RouteContext, // Updated parameter type
+	context: { params: { user_id: string } },
 ) {
 	const { data, error } = await adminSupabaseClient
 		.from("notes")
@@ -31,7 +23,7 @@ export async function GET(
 
 export async function POST(
 	request: NextRequest,
-	context: RouteContext, // Updated parameter type
+	context: { params: { user_id: string } },
 ) {
 	try {
 		const { title, message } = await request.json();
