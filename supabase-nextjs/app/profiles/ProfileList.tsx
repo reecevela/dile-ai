@@ -9,6 +9,7 @@ interface Profile {
 	id: string;
 	username: string;
 	full_name: string;
+	bio: string | null;
 	website: string;
 	avatar_url: string;
 }
@@ -24,7 +25,7 @@ export default function ProfileList() {
 				setLoading(true);
 				const { data, error } = await supabase
 					.from("profiles")
-					.select("id, username, full_name, website, avatar_url")
+					.select("id, username, full_name, website, avatar_url, bio")
 					.order("full_name");
 
 				if (error) throw error;
@@ -100,6 +101,11 @@ export default function ProfileList() {
 										<p className="text-cream/60 flex items-center gap-1 text-sm">
 											<AtSign className="w-3 h-3" />
 											{profile.username}
+										</p>
+									)}
+									{profile.bio && (
+										<p className="text-cream/60 truncate">
+											{profile.bio}
 										</p>
 									)}
 								</div>
