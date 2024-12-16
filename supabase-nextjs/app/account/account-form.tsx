@@ -87,11 +87,9 @@ export default function AccountForm({ user }: { user: User | null }) {
 			<div className="max-w-2xl mx-auto">
 				{/* Header */}
 				<div className="mb-8">
-					<h1 className="text-2xl font-bold text-cream">
-						Account Settings
-					</h1>
+					<h1 className="text-2xl font-bold text-cream">Profile</h1>
 					<p className="text-cream/60 mt-1">
-						Manage your account information and preferences
+						Manage how you appear to others
 					</p>
 				</div>
 

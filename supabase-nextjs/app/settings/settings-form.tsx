@@ -68,10 +68,11 @@ export default function SettingsForm({ user }: { user: User | null }) {
 				{/* Header */}
 				<div className="mb-8">
 					<h1 className="text-2xl font-bold text-cream">
-						Phone Settings
+						Account Settings
 					</h1>
 					<p className="text-cream/60 mt-1">
-						Update your phone number
+						Manage your personal information here. This information
+						is private.
 					</p>
 				</div>
 

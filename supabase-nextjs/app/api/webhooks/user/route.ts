@@ -27,11 +27,15 @@ export async function GET(request: NextRequest) {
 		return NextResponse.json({ error: "User not found" }, { status: 404 });
 	}
 
-	const profileData = await adminSupabaseClient
+	const { data: profileData, error: profileError } = await adminSupabaseClient
 		.from("profiles")
 		.select("full_name, bio")
-		.eq("user_id", data.id)
+		.eq("id", data.id)
 		.single();
 
-	return NextResponse.json({ id: data.id });
+	if (profileError || !profileData) {
+		return NextResponse.json({ id: data.id });
+	}
+
+	return NextResponse.json({ id: data.id, ...profileData });
 }

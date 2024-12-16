@@ -45,7 +45,7 @@ const Header = () => {
 				<div className="flex h-16 items-center justify-between">
 					{/* Logo/Brand */}
 					<Link
-						href="/"
+						href="/home"
 						className="text-cream font-bold text-xl hover:text-primary transition-colors"
 					>
 						Dile
