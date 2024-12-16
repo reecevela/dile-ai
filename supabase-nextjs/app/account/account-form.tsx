@@ -62,22 +62,23 @@ export default function AccountForm({ user }: { user: User | null }) {
 		website: string | null;
 		avatar_url: string | null;
 	}) {
+		const upsertObj = {
+			id: user?.id as string,
+			full_name: fullname,
+			username,
+			bio,
+			website,
+			avatar_url,
+			updated_at: new Date().toISOString(),
+		};
 		try {
 			setSaveStatus("saving");
-			const { error } = await supabase.from("profiles").upsert({
-				id: user?.id as string,
-				full_name: fullname,
-				username,
-				bio,
-				website,
-				avatar_url,
-				updated_at: new Date().toISOString(),
-			});
+			const { error } = await supabase.from("profiles").upsert(upsertObj);
 			if (error) throw error;
 			setSaveStatus("success");
 			setTimeout(() => setSaveStatus("idle"), 2000);
 		} catch (error) {
-			console.error("Error updating profile:", error);
+			console.error("Error updating profile:", error, upsertObj);
 			setSaveStatus("error");
 		}
 	}
